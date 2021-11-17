@@ -1,4 +1,5 @@
 $(window).load(function() {
+    const isMobile = $(window).width() <= 1024;
     function changeTabToIndex(i) {
         $('.steps-tabs .step-item.active, .steps-nav li.active').removeClass('active');
         $('.steps-tabs .step-item').eq(i).addClass('active');
@@ -81,9 +82,11 @@ $(window).load(function() {
         }
     });
     $('.left-panel').show().css('left', $('.left-panel').outerWidth()*-1);
+    
     $('.menu-call').click(function() {
         $('body').toggleClass('opened');
-        let menuLeft = ($('body').hasClass('opened')) ? 113 : $('.left-panel').outerWidth()*-1;
+        let menuLeft = ($('body').hasClass('opened') && !isMobile) ? 113 : ($('body').hasClass('opened') && isMobile) ? 0 : $('.left-panel').outerWidth()*-1;
+        
         $('.left-panel').animate({
             left: menuLeft
           }, 400);
